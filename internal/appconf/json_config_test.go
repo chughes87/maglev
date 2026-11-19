@@ -767,7 +767,7 @@ func TestGtfsStaticFeedRedacted(t *testing.T) {
 	upperSchemeFeed := GtfsStaticFeed{URL: "HTTP://user:password@example.com/feed.zip?key=TOKEN"}
 	assert.Equal(t, "http://user:xxxxx@example.com/feed.zip?"+RedactedValue,
 		upperSchemeFeed.Redacted().URL,
-		"uppercase-scheme URLs must be redacted")
+		"uppercase-scheme URLs must have sensitive information redacted")
 }
 
 func TestRedactURL(t *testing.T) {
