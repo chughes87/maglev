@@ -763,6 +763,11 @@ func TestGtfsStaticFeedRedacted(t *testing.T) {
 	percentPathFeed := GtfsStaticFeed{URL: "./feeds/100%.zip"}
 	assert.Equal(t, "./feeds/100%.zip", percentPathFeed.Redacted().URL,
 		"local paths containing percent signs should remain readable")
+
+	upperSchemeFeed := GtfsStaticFeed{URL: "HTTP://user:password@example.com/feed.zip?key=TOKEN"}
+	redactedUpperURL := upperSchemeFeed.Redacted().URL
+	assert.NotContains(t, redactedUpperURL, "password", "URL schemes are case-insensitive")
+	assert.NotContains(t, redactedUpperURL, "TOKEN", "URL schemes are case-insensitive")
 }
 
 func TestRedactURL(t *testing.T) {

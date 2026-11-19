@@ -408,7 +408,12 @@ func TestIsHTTPURL(t *testing.T) {
 		{source: "./a.zip", want: false},
 		{source: "/data/a.zip", want: false},
 		{source: "file:///data/a.zip", want: false},
-		{source: "HTTPS://example.com/a.zip", want: false},
+		{source: "HTTPS://example.com/a.zip", want: true},
+		{source: "HTTP://example.com/a.zip", want: true},
+		{source: "Https://example.com/a.zip", want: true},
+		{source: "hTtP://example.com/a.zip", want: true},
+		{source: "example.com/a.zip", want: false},
+		{source: "", want: false},
 	}
 	for _, tt := range tests {
 		t.Run(tt.source, func(t *testing.T) {
