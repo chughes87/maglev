@@ -427,7 +427,8 @@ func validateSource(source, fieldName string) error {
 // IsHTTPURL reports whether source is an http:// or https:// URL rather
 // than a local path.
 func IsHTTPURL(source string) bool {
-	return strings.HasPrefix(source, "http://") || strings.HasPrefix(source, "https://")
+	lowered := strings.ToLower(source)
+	return strings.HasPrefix(lowered, "http://") || strings.HasPrefix(lowered, "https://")
 }
 
 // validatePath checks a file path for security issues

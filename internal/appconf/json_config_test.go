@@ -763,6 +763,11 @@ func TestGtfsStaticFeedRedacted(t *testing.T) {
 	percentPathFeed := GtfsStaticFeed{URL: "./feeds/100%.zip"}
 	assert.Equal(t, "./feeds/100%.zip", percentPathFeed.Redacted().URL,
 		"local paths containing percent signs should remain readable")
+
+	upperSchemeFeed := GtfsStaticFeed{URL: "HTTP://user:password@example.com/feed.zip?key=TOKEN"}
+	assert.Equal(t, "http://user:xxxxx@example.com/feed.zip?"+RedactedValue,
+		upperSchemeFeed.Redacted().URL,
+		"URLs should have sensitive information redacted")
 }
 
 func TestRedactURL(t *testing.T) {
